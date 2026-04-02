@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog Detail | MergenMX</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #000000;
+      color: #e5e2e1;
+    }
+
+    .glass-card {
+      background: rgba(10, 10, 10, 0.55);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 229, 255, 0.12);
+    }
+
+    .blog-content p {
+      margin-bottom: 1.2rem;
+      line-height: 1.9;
+      color: #bac9cc;
+    }
+
+    .blog-content h2,
+    .blog-content h3,
+    .blog-content h4 {
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      font-family: 'Space Grotesk', sans-serif;
+      color: #e5e2e1;
+      font-weight: 700;
+    }
+
+    .blog-content ul {
+      margin: 1rem 0 1.5rem 1.25rem;
+      list-style: disc;
+      color: #bac9cc;
+    }
+
+    .blog-content li {
+      margin-bottom: 0.65rem;
+      line-height: 1.8;
+    }
+
+    .blog-content blockquote {
+      margin: 2rem 0;
+      padding: 1rem 1.25rem;
+      border-left: 3px solid #00e5ff;
+      background: rgba(255,255,255,0.02);
+      color: #e5e2e1;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <nav class="fixed top-0 left-0 w-full z-50 bg-slate-950/30 backdrop-blur-md border-b border-cyan-500/10 shadow-[0_4px_30px_rgba(0,0,0,0.2)]">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 py-4 flex items-center justify-between gap-8">
+      <a href="index.html" class="flex items-center gap-3 shrink-0">
+        <img src="images/logo.jpg" alt="MergenMX logo" class="w-9 h-9 object-contain"/>
+        <img src="images/mergen-text-logo.png" alt="MergenMX" class="h-6 md:h-7 object-contain"/>
+      </a>
+
+      <div class="flex items-center gap-1 border border-cyan-500/20 bg-white/[0.03] rounded-sm p-1">
+        <button id="lang-en" type="button" class="text-cyan-400 text-xs font-headline tracking-[0.18em] uppercase px-3 py-1.5 rounded-sm bg-cyan-400/10 transition-colors">EN</button>
+        <button id="lang-tr" type="button" class="text-cyan-400 text-xs font-headline tracking-[0.18em] uppercase px-3 py-1.5 rounded-sm hover:bg-white/5 transition-colors">TR</button>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-32 pb-24 px-6 md:px-12 max-w-4xl mx-auto">
+    <a href="blog.html" class="inline-flex items-center gap-2 text-cyan-400 hover:text-white transition-colors mb-8">
+      <span class="material-symbols-outlined">arrow_back</span>
+      <span id="back-text">Back to blog</span>
+    </a>
+
+    <article class="glass-card rounded-xl overflow-hidden">
+      
+      <div class="p-6 md:p-10">
+        <div id="blog-date" class="text-[11px] tracking-[0.18em] uppercase text-cyan-400/70 mb-4"></div>
+        <h1 id="blog-title" class="text-3xl md:text-5xl font-bold font-headline mb-6"></h1>
+        <p id="blog-desc" class="text-on-surface-variant text-lg leading-relaxed mb-10 text-[#bac9cc]"></p>
+        <div id="blog-content" class="blog-content"></div>
+      </div>
+    </article>
+  </main>
+
+  <script src="config.js"></script>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: window.env.FIREBASE_API_KEY,
+        authDomain: "mergenmx-blog.firebaseapp.com",
+        projectId: "mergenmx-blog",
+        storageBucket: "mergenmx-blog.firebasestorage.app",
+        messagingSenderId: "1067803884211",
+        appId: "1:1067803884211:web:c307e051db4cc7a32e4ec6"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let currentLang = "en";
+    let currentBlog = null;
+
+    function getLocalizedField(blog, fieldBase) {
+      const langField = `${fieldBase}_${currentLang}`;
+      const fallbackField = `${fieldBase}_en`;
+      return blog[langField] || blog[fallbackField] || "";
+    }
+
+
+    function formatDate(dateString, lang = "en") {
+      if (!dateString) return "";
+      const date = new Date(dateString);
+      if (Number.isNaN(date.getTime())) return dateString;
+
+      return date.toLocaleDateString(lang === "tr" ? "tr-TR" : "en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
+      });
+    }
+
+    function renderBlog() {
+      if (!currentBlog) return;
+
+      document.getElementById("blog-title").innerHTML = getLocalizedField(currentBlog, "title");
+      document.getElementById("blog-desc").innerHTML = getLocalizedField(currentBlog, "desc");
+      document.getElementById("blog-content").innerHTML = getLocalizedField(currentBlog, "content");
+      document.getElementById("blog-date").innerHTML = formatDate(currentBlog.date, currentLang);
+      document.getElementById("back-text").textContent = currentLang === "tr" ? "Bloga dön" : "Back to blog";
+
+      document.title = `${getLocalizedField(currentBlog, "title")} | MergenMX`;
+    }
+
+    async function loadBlog() {
+      const params = new URLSearchParams(window.location.search);
+      const blogId = params.get("id");
+
+      if (!blogId) {
+        document.getElementById("blog-title").textContent = "Blog not found";
+        return;
+      }
+
+      try {
+        const docRef = doc(db, "blogs", blogId);
+        const docSnap = await getDoc(docRef);
+
+        if (!docSnap.exists()) {
+          document.getElementById("blog-title").textContent = "Blog not found";
+          return;
+        }
+
+        currentBlog = {
+          id: docSnap.id,
+          ...docSnap.data()
+        };
+
+        renderBlog();
+      } catch (error) {
+        console.error(error);
+        document.getElementById("blog-title").textContent = "Error loading blog";
+      }
+    }
+
+    const langEnBtn = document.getElementById("lang-en");
+    const langTrBtn = document.getElementById("lang-tr");
+
+    function applyLanguage(lang) {
+      currentLang = lang.toLowerCase() === "tr" ? "tr" : "en";
+      document.documentElement.lang = currentLang;
+
+      if (currentLang === "tr") {
+        langTrBtn.classList.add("bg-cyan-400/10");
+        langTrBtn.classList.remove("hover:bg-white/5");
+        langEnBtn.classList.remove("bg-cyan-400/10");
+        langEnBtn.classList.add("hover:bg-white/5");
+      } else {
+        langEnBtn.classList.add("bg-cyan-400/10");
+        langEnBtn.classList.remove("hover:bg-white/5");
+        langTrBtn.classList.remove("bg-cyan-400/10");
+        langTrBtn.classList.add("hover:bg-white/5");
+      }
+
+      renderBlog();
+    }
+
+    langEnBtn.addEventListener("click", () => applyLanguage("en"));
+    langTrBtn.addEventListener("click", () => applyLanguage("tr"));
+
+    applyLanguage("en");
+    loadBlog();
+  </script>
+</body>
+</html>

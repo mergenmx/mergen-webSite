@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <title>About | MergenMX</title>
+  
+
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "tertiary": "#ffeac0",
+            "inverse-surface": "#e5e2e1",
+            "inverse-on-surface": "#313030",
+            "background": "#000000",
+            "secondary-container": "#11505a",
+            "on-primary-fixed-variant": "#004f58",
+            "on-primary-fixed": "#001f24",
+            "outline": "#849396",
+            "on-primary": "#00363d",
+            "on-primary-container": "#00626e",
+            "on-background": "#e5e2e1",
+            "surface-bright": "#101010",
+            "secondary-fixed-dim": "#98d0da",
+            "surface-container-lowest": "#000000",
+            "tertiary-fixed-dim": "#f3bf26",
+            "secondary": "#98d0da",
+            "on-tertiary": "#3e2e00",
+            "surface-variant": "#111111",
+            "outline-variant": "#3b494c",
+            "on-error-container": "#ffdad6",
+            "on-tertiary-fixed": "#251a00",
+            "primary-fixed": "#9cf0ff",
+            "on-error": "#690005",
+            "surface-dim": "#000000",
+            "on-tertiary-fixed-variant": "#594400",
+            "on-surface-variant": "#bac9cc",
+            "inverse-primary": "#006875",
+            "error-container": "#93000a",
+            "surface-container-highest": "#0a0a0a",
+            "on-tertiary-container": "#6f5500",
+            "on-secondary-fixed-variant": "#0d4e57",
+            "on-secondary": "#00363d",
+            "error": "#ffb4ab",
+            "tertiary-fixed": "#ffdf96",
+            "secondary-fixed": "#b3ecf7",
+            "primary-fixed-dim": "#00daf3",
+            "surface-container-low": "#000000",
+            "tertiary-container": "#fec931",
+            "surface-tint": "#00daf3",
+            "surface-container-high": "#050505",
+            "surface": "#000000",
+            "on-surface": "#e5e2e1",
+            "primary-container": "#00e5ff",
+            "on-secondary-fixed": "#001f24",
+            "on-secondary-container": "#8ac1cc",
+            "surface-container": "#000000",
+            "primary": "#c3f5ff"
+          },
+          fontFamily: {
+            "headline": ["Space Grotesk"],
+            "body": ["Inter"],
+            "label": ["Space Grotesk"]
+          },
+          borderRadius: {
+            "DEFAULT": "0.125rem",
+            "lg": "0.25rem",
+            "xl": "0.5rem",
+            "full": "0.75rem"
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: #000000 !important;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .font-space-grotesk {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .glass-panel {
+      background: rgba(10, 10, 10, 0.55);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 229, 255, 0.1);
+    }
+
+    .text-glow {
+      text-shadow: 0 0 15px rgba(0, 229, 255, 0.4);
+    }
+
+    .click-spark {
+      position: fixed;
+      width: 8px;
+      height: 8px;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .click-spark-particle {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 3px;
+      height: 18px;
+      border-radius: 999px;
+      background: #00e5ff;
+      box-shadow: 0 0 12px rgba(0, 229, 255, 0.8);
+      transform-origin: center bottom;
+      animation: spark-burst 650ms ease-out forwards;
+    }
+
+    @keyframes spark-burst {
+      0% {
+        opacity: 1;
+        transform: translate(0, 0) scaleY(0.6);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(var(--tx), var(--ty)) scaleY(1);
+      }
+    }
+
+    .timeline-shell {
+  position: relative;
+  min-height: 2600px;
+}
+
+.timeline-svg-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.timeline-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.timeline-orb {
+  position: absolute;
+  width: 84px;
+  height: 84px;
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 35% 35%, rgba(255,255,255,0.95), rgba(150,210,255,0.85) 28%, rgba(59,130,246,0.45) 60%, rgba(59,130,246,0.06) 100%);
+  box-shadow:
+    0 0 20px rgba(125, 211, 252, 0.45),
+    0 0 60px rgba(59, 130, 246, 0.38),
+    inset 0 0 18px rgba(255,255,255,0.45);
+  border: 1px solid rgba(147, 197, 253, 0.35);
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  transition: left 0.12s linear, top 0.12s linear, opacity 0.2s ease;
+  opacity: 1;
+}
+
+.timeline-orb::after {
+  content: "";
+  position: absolute;
+  inset: -18px;
+  border-radius: inherit;
+  border: 1px solid rgba(96, 165, 250, 0.2);
+  box-shadow: 0 0 30px rgba(59, 130, 246, 0.2);
+}
+
+.timeline-items {
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-item {
+  position: relative;
+  min-height: 420px;
+  display: flex;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(80px) scale(0.97);
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.45s ease;
+  filter: blur(8px);
+}
+
+.timeline-item + .timeline-item {
+  margin-top: 130px;
+}
+
+.timeline-item.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+.timeline-item-right {
+  justify-content: flex-end;
+  padding-right: 5%;
+}
+
+.timeline-item-left {
+  justify-content: flex-start;
+  padding-left: 5%;
+}
+
+.timeline-card {
+  position: relative;
+  width: min(470px, 92%);
+  background: rgba(6, 8, 16, 0.72);
+  border: 1px solid rgba(59, 130, 246, 0.16);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.02),
+    0 0 30px rgba(59, 130, 246, 0.08);
+  transition:
+    transform 0.4s ease,
+    border-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.timeline-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top right, rgba(96, 165, 250, 0.13), transparent 35%),
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.timeline-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(96, 165, 250, 0.28);
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,0.03),
+    0 0 45px rgba(59, 130, 246, 0.16);
+}
+
+.timeline-node {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  transform: translate(-50%, -50%);
+  background: #7dd3fc;
+  box-shadow:
+    0 0 0 8px rgba(59,130,246,0.08),
+    0 0 20px rgba(59,130,246,0.55);
+  z-index: 4;
+}
+
+@media (max-width: 1023px) {
+  .timeline-shell {
+    min-height: auto;
+  }
+
+  .timeline-svg-wrap {
+    left: 0;
+    right: 0;
+  }
+
+  .timeline-svg {
+    display: none;
+  }
+
+  .timeline-orb {
+    display: none;
+  }
+
+  .timeline-item,
+  .timeline-item-right,
+  .timeline-item-left {
+    justify-content: flex-start;
+    padding-left: 3.75rem;
+    padding-right: 0;
+    min-height: auto;
+  }
+
+  .timeline-item + .timeline-item {
+    margin-top: 4.5rem;
+  }
+
+  .timeline-item::before {
+    content: "";
+    position: absolute;
+    left: 1.1rem;
+    top: 0;
+    bottom: -4.5rem;
+    width: 2px;
+    background: linear-gradient(to bottom, rgba(0,229,255,0.45), rgba(0,229,255,0.08));
+  }
+
+  .timeline-item:last-child::before {
+    bottom: 0;
+  }
+
+  .timeline-node {
+    left: 1.1rem;
+    top: 2rem;
+  }
+
+  .timeline-card {
+    width: 100%;
+  }
+}
+
+    .team-card {
+      position: relative;
+      overflow: hidden;
+      background: rgba(8, 8, 8, 0.72);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(0, 229, 255, 0.12);
+      transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .team-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at top right, rgba(0, 229, 255, 0.15), transparent 35%),
+        linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0));
+      pointer-events: none;
+    }
+
+    .team-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(0, 229, 255, 0.3);
+      box-shadow: 0 0 30px rgba(0, 229, 255, 0.12);
+    }
+
+    .team-tag {
+      border: 1px solid rgba(0, 229, 255, 0.15);
+      background: rgba(0, 229, 255, 0.06);
+      color: #9cf0ff;
+    }
+
+    @media (max-width: 1023px) {
+      .timeline-line,
+      .timeline-progress {
+        left: 22px;
+        transform: none;
+      }
+
+      .timeline-dot {
+        left: 22px;
+        transform: translateX(-50%);
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-background text-on-surface font-body selection:bg-primary-container selection:text-on-primary-container overflow-x-hidden">
+  <!-- TopNavBar -->
+  <nav class="fixed top-0 left-0 w-full z-50 bg-slate-950/30 backdrop-blur-md border-b border-cyan-500/10 shadow-[0_4px_30px_rgba(0,0,0,0.2)]">
+    <div class="max-w-7xl mx-auto px-6 md:px-8 py-4 flex items-center justify-between gap-8">
+      <a href="index.html" class="flex items-center gap-3 shrink-0">
+        <img src="images/logo.jpg" alt="MergenMX logo" class="w-9 h-9 object-contain"/>
+        <img src="images/mergen-text-logo.png" alt="MergenMX" class="h-6 md:h-7 object-contain"/>
+      </a>
+
+      <div class="hidden md:flex items-center gap-6 font-headline tracking-[0.18em] uppercase text-sm">
+        <a class="text-slate-400 hover:text-white transition-colors px-2 py-1" href="index.html" data-tr="Ana Sayfa">Home</a>
+        <a class="text-slate-400 hover:text-white transition-colors px-2 py-1" href="products.html" data-tr="Ürünler">Products</a>
+        <a class="text-slate-400 hover:text-white transition-colors px-2 py-1" href="blog.html" data-tr="Blog">Blog</a>
+        <a class="text-cyan-400 border-b-2 border-cyan-400 pb-1 px-2" href="about.html" data-tr="Hakkımızda">About</a>
+        <a class="text-slate-400 hover:text-white transition-colors px-2 py-1" href="contact.html" data-tr="İletişim">Contact</a>
+      </div>
+
+      <div class="flex items-center shrink-0">
+        <div class="flex items-center gap-1 border border-cyan-500/20 bg-white/[0.03] rounded-sm p-1">
+          <button
+            id="lang-en"
+            type="button"
+            class="text-cyan-400 text-xs font-headline tracking-[0.18em] uppercase px-3 py-1.5 rounded-sm bg-cyan-400/10 transition-colors">
+            EN
+          </button>
+          <button
+            id="lang-tr"
+            type="button"
+            class="text-cyan-400 text-xs font-headline tracking-[0.18em] uppercase px-3 py-1.5 rounded-sm hover:bg-white/5 transition-colors">
+            TR
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="relative pt-32 pb-24 px-6 md:px-12 lg:px-24">
+    <!-- Ambient background -->
+    <div class="fixed top-[-10%] left-[-10%] w-[40%] h-[40%] bg-primary-container/5 rounded-full blur-[120px] pointer-events-none"></div>
+    <div class="fixed bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary-container/5 rounded-full blur-[150px] pointer-events-none"></div>
+
+    <!-- Hero -->
+    <section class="max-w-5xl mb-24 md:mb-32">
+      <div class="mb-6 flex items-center gap-3">
+        <span class="inline-flex items-center gap-2 text-[11px] md:text-xs uppercase tracking-[0.3em] text-primary-container font-headline">
+          <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+          <span data-tr="Yolculuğumuz">Our Journey</span>
+        </span>
+      </div>
+
+      <h1 class="font-headline text-5xl md:text-7xl font-bold tracking-tight leading-[0.95] text-glow mb-6">
+        <span data-tr="Zaman çizgimiz">Our</span>
+        <span class="text-primary-fixed-dim" data-tr="ve">timeline</span><br>
+        <span data-tr="ekibimiz">and team</span>
+      </h1>
+
+      <p
+        class="text-lg md:text-xl text-on-surface-variant max-w-3xl font-light leading-relaxed tracking-wide"
+        data-tr="MergenMX’in nasıl başladığını, bugün nerede olduğunu ve nereye gitmek istediğini adım adım keşfedin. Aşağı kaydıkça geçmişimizi, büyümemizi ve gelecek hedeflerimizi görebilirsiniz.">
+        Discover how MergenMX started, where it stands today, and where it is heading next. As you scroll, you will see our milestones, growth, and future goals unfold step by step.
+      </p>
+    </section>
+
+    <!-- Timeline -->
+    <!-- Timeline -->
+<section class="relative max-w-6xl mx-auto mb-28 md:mb-36" id="timeline-section">
+  <div class="text-center mb-16 md:mb-20">
+    <h2 class="font-headline text-3xl md:text-5xl font-bold tracking-tight mb-4" data-tr="Zaman Çizelgesi">
+      Timeline
+    </h2>
+    <p class="max-w-2xl mx-auto text-on-surface-variant leading-relaxed" data-tr="Kuruluşumuzdan gelecek vizyonumuza uzanan gelişim yolculuğumuz.">
+      The path of our development from foundation to future vision.
+    </p>
+  </div>
+
+  <div class="timeline-shell relative">
+    <div class="timeline-svg-wrap" aria-hidden="true">
+      <svg class="timeline-svg" viewBox="0 0 1200 2600" preserveAspectRatio="none">
+        <path
+          id="timelineBasePath"
+          d="M600 40
+             C 720 220, 470 420, 590 640
+             C 740 900, 420 1080, 610 1320
+             C 790 1540, 470 1780, 600 2020
+             C 700 2200, 540 2360, 620 2540"
+          fill="none"
+          stroke="rgba(255,255,255,0.08)"
+          stroke-width="8"
+          stroke-linecap="round"
+        />
+        <path
+          id="timelineGlowPath"
+          d="M600 40
+             C 720 220, 470 420, 590 640
+             C 740 900, 420 1080, 610 1320
+             C 790 1540, 470 1780, 600 2020
+             C 700 2200, 540 2360, 620 2540"
+          fill="none"
+          stroke="url(#timelineGradient)"
+          stroke-width="10"
+          stroke-linecap="round"
+          stroke-dasharray="1"
+          stroke-dashoffset="1"
+          filter="url(#glow)"
+        />
+        <defs>
+          <linearGradient id="timelineGradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#7cc7ff"/>
+            <stop offset="50%" stop-color="#3b82f6"/>
+            <stop offset="100%" stop-color="#00e5ff"/>
+          </linearGradient>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+            <feMerge>
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+      </svg>
+
+      <div id="timelineOrb" class="timeline-orb"></div>
+    </div>
+
+    <div class="timeline-items">
+      <!-- 1 -->
+      <article class="timeline-item timeline-item-right" data-index="0">
+        <div class="timeline-node"></div>
+        <div class="timeline-card glass-panel rounded-xl p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-4 flex-wrap">
+            <span class="inline-flex items-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-primary-container font-headline font-bold"
+                  data-tr="Kuruluş">
+              Foundation
+            </span>
+            <span class="text-xs md:text-sm text-on-surface-variant font-medium" data-tr="Ekim 2025">
+              October 2025
+            </span>
+          </div>
+
+          <h3 class="font-headline text-2xl md:text-4xl font-bold mb-4" data-tr="MergenMX kuruldu">
+            MergenMX was founded
+          </h3>
+
+          <p class="text-on-surface-variant leading-relaxed text-sm md:text-base"
+             data-tr="MergenMX, Ekim 2025’te iki kişilik bir ekip olarak kuruldu. Bu dönem, vizyonumuzu netleştirdiğimiz ve gelecekte inşa etmek istediğimiz ürünlerin temelini attığımız başlangıç noktası oldu.">
+            MergenMX was founded in October 2025 as a team of two. This was the starting point where we clarified our vision and laid the foundation for the products we wanted to build in the future.
+          </p>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="timeline-item timeline-item-left" data-index="1">
+        <div class="timeline-node"></div>
+        <div class="timeline-card glass-panel rounded-xl p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-4 flex-wrap">
+            <span class="inline-flex items-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-primary-container font-headline font-bold"
+                  data-tr="Büyüme">
+              Growth
+            </span>
+            <span class="text-xs md:text-sm text-on-surface-variant font-medium" data-tr="Aralık 2025">
+              December 2025
+            </span>
+          </div>
+
+          <h3 class="font-headline text-2xl md:text-4xl font-bold mb-4" data-tr="Ekibimiz dört kişiye ulaştı">
+            Our team grew to four
+          </h3>
+
+          <p class="text-on-surface-variant leading-relaxed text-sm md:text-base"
+             data-tr="Aralık 2025’te aramıza iki kişi daha katıldı. Böylece daha güçlü bir ekip yapısı kurduk ve projeler üzerinde aktif şekilde çalışmaya başladık.">
+            In December 2025, two more people joined us. This gave us a stronger team structure and allowed us to start working actively on our projects.
+          </p>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="timeline-item timeline-item-right" data-index="2">
+        <div class="timeline-node"></div>
+        <div class="timeline-card glass-panel rounded-xl p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-4 flex-wrap">
+            <span class="inline-flex items-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-primary-container font-headline font-bold"
+                  data-tr="Yayın">
+              Launch
+            </span>
+            <span class="text-xs md:text-sm text-on-surface-variant font-medium" data-tr="Mart 2026">
+              March 2026
+            </span>
+          </div>
+
+          <h3 class="font-headline text-2xl md:text-4xl font-bold mb-4" data-tr="İlk iki uygulamamızı çıkardık">
+            We launched our first two apps
+          </h3>
+
+          <p class="text-on-surface-variant leading-relaxed text-sm md:text-base"
+             data-tr="Mart 2026’da ilk iki uygulamamızı yayına aldık. Bu aşama, fikirlerimizi gerçek ürünlere dönüştürmeye başladığımız en önemli dönüm noktalarından biri oldu.">
+            In March 2026, we launched our first two apps. This became one of the most important milestones where our ideas started turning into real products.
+          </p>
+        </div>
+      </article>
+
+      <!-- 4 -->
+      <article class="timeline-item timeline-item-left" data-index="3">
+        <div class="timeline-node"></div>
+        <div class="timeline-card glass-panel rounded-xl p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-4 flex-wrap">
+            <span class="inline-flex items-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-primary-container font-headline font-bold"
+                  data-tr="Hedef">
+              Goal
+            </span>
+            <span class="text-xs md:text-sm text-on-surface-variant font-medium" data-tr="2026'nın devamı">
+              Rest of 2026
+            </span>
+          </div>
+
+          <h3 class="font-headline text-2xl md:text-4xl font-bold mb-4" data-tr="Toplamda 5 yeni uygulama daha">
+            5 more apps in total
+          </h3>
+
+          <p class="text-on-surface-variant leading-relaxed text-sm md:text-base"
+             data-tr="2026’nın devamında hedefimiz toplamda 5 yeni uygulama daha çıkarmak. Böylece ürün yelpazemizi büyütüp daha farklı alanlarda çözümler üretmek istiyoruz.">
+            Our goal for the rest of 2026 is to release 5 more apps in total. This will help us expand our product range and create solutions in a wider set of areas.
+          </p>
+        </div>
+      </article>
+
+      <!-- 5 -->
+      <article class="timeline-item timeline-item-right" data-index="4">
+        <div class="timeline-node"></div>
+        <div class="timeline-card glass-panel rounded-xl p-6 md:p-8">
+          <div class="flex items-center gap-3 mb-4 flex-wrap">
+            <span class="inline-flex items-center rounded-full border border-cyan-400/20 bg-cyan-400/10 px-3 py-1 text-[11px] uppercase tracking-[0.2em] text-primary-container font-headline font-bold"
+                  data-tr="Vizyon">
+              Vision
+            </span>
+            <span class="text-xs md:text-sm text-on-surface-variant font-medium" data-tr="2027">
+              2027
+            </span>
+          </div>
+
+          <h3 class="font-headline text-2xl md:text-4xl font-bold mb-4" data-tr="Kurumsal satış ve profesyonel yazılımlar">
+            Institutional sales and professional software
+          </h3>
+
+          <p class="text-on-surface-variant leading-relaxed text-sm md:text-base"
+             data-tr="2027’de daha gelişmiş ve profesyonel yazılımlar üretip bunları kurumlara sunmayı hedefliyoruz. Uzun vadede kalıcı ve güçlü bir teknoloji markası olmak istiyoruz.">
+            In 2027, we aim to build more advanced professional software and offer it to institutions. In the long term, we want to become a strong and lasting technology brand.
+          </p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+    <!-- Team -->
+    <section class="max-w-7xl mx-auto" id="team">
+      <div class="mb-14 md:mb-16 text-center">
+        <h2 class="font-headline text-3xl md:text-5xl font-bold tracking-tight mb-4" data-tr="Ekibimiz">
+          Our Team
+        </h2>
+        <p class="max-w-2xl mx-auto text-on-surface-variant leading-relaxed" data-tr="MergenMX’i inşa eden çekirdek ekip. Her biri farklı bir alanda katkı sağlıyor ve aynı vizyon etrafında çalışıyor.">
+          The core team building MergenMX. Each member contributes in a different area while working toward the same vision.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <!-- Buse -->
+        <article class="team-card rounded-xl p-6 md:p-7">
+          <div class="relative z-10">
+            <div class="w-14 h-14 rounded-full border border-cyan-500/20 bg-cyan-400/10 flex items-center justify-center mb-6">
+              <span class="material-symbols-outlined text-primary-container text-3xl">code</span>
+            </div>
+            <div class="mb-3">
+              <h3 class="font-headline text-2xl font-bold">Buse</h3>
+            </div>
+            <div class="inline-flex team-tag rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.2em] font-headline font-bold mb-5"
+                 data-tr="Kurucu">
+              Founder
+            </div>
+            <p class="text-on-surface-variant leading-relaxed text-sm md:text-base" data-tr="Kurucumuz ve yazılımcımız. Yazılım geliştirme süreçlerinde aktif rol alır ve ürünlerin teknik yönünü şekillendirir.">
+              Our founder and software engineer. She takes an active role in software development processes and shapes the technical side of the products.
+            </p>
+          </div>
+        </article>
+
+        <!-- Rumeysa -->
+        <article class="team-card rounded-xl p-6 md:p-7">
+          <div class="relative z-10">
+            <div class="w-14 h-14 rounded-full border border-cyan-500/20 bg-cyan-400/10 flex items-center justify-center mb-6">
+              <span class="material-symbols-outlined text-primary-container text-3xl">terminal</span>
+            </div>
+            <div class="mb-3">
+              <h3 class="font-headline text-2xl font-bold">Rümeysa</h3>
+            </div>
+            <div class="inline-flex team-tag rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.2em] font-headline font-bold mb-5"
+                 data-tr="Kurucu Ortak">
+              Co-Founder
+            </div>
+            <p class="text-on-surface-variant leading-relaxed text-sm md:text-base" data-tr="Kurucu ortağımız ve yazılımcımız. Ürün geliştirme, yazılım mimarisi ve teknik üretim tarafında çalışır.">
+              Our co-founder and software engineer. She works on product development, software architecture, and technical production.
+            </p>
+          </div>
+        </article>
+
+        <!-- Zeynep -->
+        <article class="team-card rounded-xl p-6 md:p-7">
+          <div class="relative z-10">
+            <div class="w-14 h-14 rounded-full border border-cyan-500/20 bg-cyan-400/10 flex items-center justify-center mb-6">
+              <span class="material-symbols-outlined text-primary-container text-3xl">integration_instructions</span>
+            </div>
+            <div class="mb-3">
+              <h3 class="font-headline text-2xl font-bold">Zeynep</h3>
+            </div>
+            <div class="inline-flex team-tag rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.2em] font-headline font-bold mb-5"
+                 data-tr="Yazılım Mühendisi">
+              Software Engineer
+            </div>
+            <p class="text-on-surface-variant leading-relaxed text-sm md:text-base" data-tr="Yazılım mühendisimiz. Teknik geliştirme süreçlerinde yer alır ve ürünlerin uygulanabilir hale gelmesine katkı sağlar.">
+              Our software engineer. She is involved in technical development processes and contributes to making products practical and ready to build.
+            </p>
+          </div>
+        </article>
+
+        <!-- Sıla -->
+        <article class="team-card rounded-xl p-6 md:p-7">
+          <div class="relative z-10">
+            <div class="w-14 h-14 rounded-full border border-cyan-500/20 bg-cyan-400/10 flex items-center justify-center mb-6">
+              <span class="material-symbols-outlined text-primary-container text-3xl">campaign</span>
+            </div>
+            <div class="mb-3">
+              <h3 class="font-headline text-2xl font-bold">Sıla</h3>
+            </div>
+            <div class="inline-flex team-tag rounded-full px-3 py-1 text-[11px] uppercase tracking-[0.2em] font-headline font-bold mb-5"
+                 data-tr="Reklam ve Sosyal Medya">
+              Advertising & Social Media
+            </div>
+            <p class="text-on-surface-variant leading-relaxed text-sm md:text-base" data-tr="Reklam ve sosyal medya tarafını yönetir. Markanın görünürlüğü, iletişimi ve dijital yüzü üzerinde çalışır.">
+              She manages advertising and social media. She works on the brand’s visibility, communication, and digital presence.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="w-full rounded-t-xl bg-black border-t border-cyan-500/20 shadow-[0_-10px_40px_rgba(0,229,255,0.05)] mt-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 px-12 py-16 w-full max-w-7xl mx-auto">
+      <div>
+        <img src="images/mergen-text-logo.png" alt="MergenMX" class="h-6 md:h-7 object-contain"/>
+        <p
+          class="font-inter text-xs tracking-tight text-slate-500 max-w-sm"
+          data-tr="© 2026 MergenMX. Tüm gezegensel ve yörüngesel hakları saklıdır. Yüksek doğruluklu teknik standartlarla çalışır.">
+          © 2026 MergenMX. All planetary and orbital rights reserved. Operating under high-fidelity technical standards.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-8">
+        <div class="space-y-4">
+          <div class="text-cyan-400 font-label text-[10px] uppercase tracking-[0.2em] font-bold" data-tr="Navigasyon">
+            Navigation
+          </div>
+          <ul class="space-y-2">
+            <li><a class="font-inter text-xs tracking-tight text-slate-500 hover:text-cyan-400 transition-colors" href="privacy.html" data-tr="Gizlilik Politikası">Privacy Policy</a></li>
+            <li><a class="font-inter text-xs tracking-tight text-slate-500 hover:text-cyan-400 transition-colors" href="terms.html" data-tr="Hizmet Şartları">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const langEnBtn = document.getElementById('lang-en');
+    const langTrBtn = document.getElementById('lang-tr');
+
+    function applyLanguage(lang) {
+      document.documentElement.lang = lang.toLowerCase();
+
+      if (lang === 'TR') {
+        langTrBtn.classList.add('bg-cyan-400/10');
+        langTrBtn.classList.remove('hover:bg-white/5');
+
+        langEnBtn.classList.remove('bg-cyan-400/10');
+        langEnBtn.classList.add('hover:bg-white/5');
+      } else {
+        langEnBtn.classList.add('bg-cyan-400/10');
+        langEnBtn.classList.remove('hover:bg-white/5');
+
+        langTrBtn.classList.remove('bg-cyan-400/10');
+        langTrBtn.classList.add('hover:bg-white/5');
+      }
+
+      document.querySelectorAll('[data-tr]').forEach(el => {
+        if (!el.dataset.en) {
+          el.dataset.en = el.innerHTML.trim();
+        }
+        el.innerHTML = lang === 'TR' ? el.dataset.tr : el.dataset.en;
+      });
+    }
+
+    langEnBtn.addEventListener('click', () => applyLanguage('EN'));
+    langTrBtn.addEventListener('click', () => applyLanguage('TR'));
+
+    applyLanguage('EN');
+  </script>
+
+  <script>
+  const timelineItems = document.querySelectorAll('.timeline-item');
+  const timelineSection = document.getElementById('timeline-section');
+  const orb = document.getElementById('timelineOrb');
+  const basePath = document.getElementById('timelineBasePath');
+  const glowPath = document.getElementById('timelineGlowPath');
+
+  function updateTimelineVisuals() {
+    if (!timelineSection || !basePath || !glowPath || !orb) return;
+    if (window.innerWidth <= 1023) return;
+
+    const rect = timelineSection.getBoundingClientRect();
+    const sectionHeight = timelineSection.offsetHeight;
+    const viewH = window.innerHeight;
+
+    const start = viewH * 0.22;
+    const end = sectionHeight - viewH * 0.28;
+    const raw = (start - rect.top) / Math.max(end - start, 1);
+    const progress = Math.min(Math.max(raw, 0), 1);
+
+    const totalLength = basePath.getTotalLength();
+    glowPath.style.strokeDasharray = totalLength;
+    glowPath.style.strokeDashoffset = totalLength * (1 - progress);
+
+    const point = basePath.getPointAtLength(totalLength * progress);
+    const svg = basePath.ownerSVGElement;
+    const svgRect = svg.getBoundingClientRect();
+
+    orb.style.left = `${(point.x / 1200) * svgRect.width}px`;
+    orb.style.top = `${(point.y / 2600) * svgRect.height}px`;
+    orb.style.opacity = progress <= 0.01 || progress >= 0.995 ? "0.75" : "1";
+
+    timelineItems.forEach((item) => {
+      const itemRect = item.getBoundingClientRect();
+      const trigger = window.innerHeight * 0.78;
+      const visible = itemRect.top < trigger && itemRect.bottom > window.innerHeight * 0.18;
+
+      if (visible) {
+        item.classList.add('visible');
+      } else {
+        item.classList.remove('visible');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateTimelineVisuals, { passive: true });
+  window.addEventListener('resize', updateTimelineVisuals);
+  window.addEventListener('load', updateTimelineVisuals);
+</script>
+
+  <script>
+    function createClickSpark(x, y) {
+      const spark = document.createElement("div");
+      spark.className = "click-spark";
+      spark.style.left = `${x}px`;
+      spark.style.top = `${y}px`;
+      document.body.appendChild(spark);
+
+      const particleCount = 10;
+      const spread = 360;
+      const distance = 22;
+
+      for (let i = 0; i < particleCount; i++) {
+        const p = document.createElement("div");
+        p.className = "click-spark-particle";
+
+        const angle = (spread / particleCount) * i;
+        const rad = angle * (Math.PI / 180);
+
+        const tx = Math.cos(rad) * distance;
+        const ty = Math.sin(rad) * distance;
+
+        p.style.setProperty("--tx", `${tx}px`);
+        p.style.setProperty("--ty", `${ty}px`);
+        p.style.transform = `rotate(${angle}deg)`;
+
+        spark.appendChild(p);
+      }
+
+      setTimeout(() => {
+        spark.remove();
+      }, 700);
+    }
+
+    document.addEventListener("click", (e) => {
+      createClickSpark(e.clientX, e.clientY);
+    });
+  </script>
+</body>
+</html>
